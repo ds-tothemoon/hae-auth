@@ -1,0 +1,15 @@
+server:
+  port: 9090
+
+spring:
+  r2dbc:
+    url: r2dbc:mariadb://localhost:3306/ecommerce?useUnicode=true&characterEncoding=UTF-8&useSSL=false&useLocalSessionState=true
+    username: root
+    password: fighting
+
+jwt:
+  issuer: jara
+  subject: auth
+  expires-time: 3600
+  secret: dummy
+
