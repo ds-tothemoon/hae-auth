@@ -9,5 +9,4 @@ class HaeAuthApplicationTests {
     @Test
     fun contextLoads() {
     }
-
 }

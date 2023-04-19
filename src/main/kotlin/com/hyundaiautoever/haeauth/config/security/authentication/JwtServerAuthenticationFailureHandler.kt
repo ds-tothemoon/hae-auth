@@ -11,10 +11,11 @@ import org.springframework.stereotype.Component
 import reactor.core.publisher.Mono
 
 @Component
-class JwtServerAuthenticationFailureHandler  : ServerAuthenticationFailureHandler {
-    override fun onAuthenticationFailure(webFilterExchange: WebFilterExchange?, exception: AuthenticationException?): Mono<Void> = mono {
-        val exchange = webFilterExchange?.exchange ?: throw HttpExceptionFactory.unauthorized()
-        exchange.response.statusCode = HttpStatus.UNAUTHORIZED
-        exchange.response.setComplete().awaitFirstOrNull()
-    }
+class JwtServerAuthenticationFailureHandler : ServerAuthenticationFailureHandler {
+    override fun onAuthenticationFailure(webFilterExchange: WebFilterExchange?, exception: AuthenticationException?):
+        Mono<Void> = mono {
+            val exchange = webFilterExchange?.exchange ?: throw HttpExceptionFactory.unauthorized()
+            exchange.response.statusCode = HttpStatus.UNAUTHORIZED
+            exchange.response.setComplete().awaitFirstOrNull()
+        }
 }

@@ -44,7 +44,7 @@ class AuthService(
                 throw PasswordNotMatchedException()
             }
 
-            val token =  jwtService.accessToken(email, arrayOf(role))
+            val token = jwtService.accessToken(email, arrayOf(role))
 
             SignInResponse(
                 email = email,
@@ -63,5 +63,4 @@ class AuthService(
     }
 
     suspend fun getUser(email: String): AppUser = userRepository.findByEmail(email) ?: throw UserNotFoundException()
-
 }

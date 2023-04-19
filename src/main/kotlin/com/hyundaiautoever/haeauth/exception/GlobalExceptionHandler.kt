@@ -35,6 +35,4 @@ class GlobalExceptionHandler(private val objectMapper: ObjectMapper) : ErrorWebE
             writeWith(dataBuffer.toMono()).awaitSingle()
         }
     }
-
-
 }

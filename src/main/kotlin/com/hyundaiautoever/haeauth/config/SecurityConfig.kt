@@ -24,7 +24,6 @@ import org.springframework.security.web.server.context.NoOpServerSecurityContext
 import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers
 import org.springframework.web.reactive.config.EnableWebFlux
 
-
 @Configuration
 @EnableWebFlux
 @EnableWebFluxSecurity
@@ -36,8 +35,8 @@ class SecurityConfig {
     @Bean
     fun configureSecurity(
         http: ServerHttpSecurity,
-          jwtAuthenticationFilter: AuthenticationWebFilter,
-          jwtService: JwtService
+        jwtAuthenticationFilter: AuthenticationWebFilter,
+        jwtService: JwtService
     ): SecurityWebFilterChain {
         return http
             .csrf().disable()
@@ -63,8 +62,11 @@ class SecurityConfig {
         jwtServerAuthenticationFailureHandler: ServerAuthenticationFailureHandler
     ): AuthenticationWebFilter {
         val authenticationWebFilter = AuthenticationWebFilter(reactiveAuthenticationManager)
-        authenticationWebFilter.setRequiresAuthenticationMatcher { ServerWebExchangeMatchers.pathMatchers(
-            HttpMethod.POST, "/auth/signin").matches(it) }
+        authenticationWebFilter.setRequiresAuthenticationMatcher {
+            ServerWebExchangeMatchers.pathMatchers(
+                HttpMethod.POST, "/auth/signin"
+            ).matches(it)
+        }
         authenticationWebFilter.setServerAuthenticationConverter(jwtConverter)
         authenticationWebFilter.setAuthenticationSuccessHandler(serverAuthenticationSuccessHandler)
         authenticationWebFilter.setAuthenticationFailureHandler(jwtServerAuthenticationFailureHandler)
@@ -76,8 +78,10 @@ class SecurityConfig {
     fun jacksonDecoder(): AbstractJackson2Decoder = Jackson2JsonDecoder()
 
     @Bean
-    fun reactiveAuthenticationManager(reactiveUserDetailsService: CustomReactiveUserDetailsService,
-                                      passwordEncoder: PasswordEncoder): ReactiveAuthenticationManager {
+    fun reactiveAuthenticationManager(
+        reactiveUserDetailsService: CustomReactiveUserDetailsService,
+        passwordEncoder: PasswordEncoder
+    ): ReactiveAuthenticationManager {
         val manager = UserDetailsRepositoryReactiveAuthenticationManager(reactiveUserDetailsService)
         manager.setPasswordEncoder(passwordEncoder)
         return manager

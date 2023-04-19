@@ -27,9 +27,6 @@ data class MeResponse(
                 createdAt = createdAt,
                 updatedAt = updatedAt,
             )
-
         }
-
-
     }
 }

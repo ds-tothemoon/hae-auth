@@ -13,19 +13,20 @@ import reactor.core.publisher.Mono
 @Component
 class JwtServerAuthenticationSuccessHandler(private val jwtService: JwtService) :
     ServerAuthenticationSuccessHandler {
-    override fun onAuthenticationSuccess(webFilterExchange: WebFilterExchange?, authentication: Authentication?): Mono<Void> = mono {
-        val principal = authentication?.principal ?: throw unauthorized()
+    override fun onAuthenticationSuccess(webFilterExchange: WebFilterExchange?, authentication: Authentication?):
+        Mono<Void> = mono {
+            val principal = authentication?.principal ?: throw unauthorized()
 
-        when (principal) {
-            is User -> {
-                val roles = principal.authorities.map { it.authority }.toTypedArray()
-                val accessToken = jwtService.accessToken(principal.username, roles)
-                val refreshToken = jwtService.refreshToken(principal.username, roles)
-                webFilterExchange?.exchange?.response?.headers?.set("Authorization", accessToken)
-                webFilterExchange?.exchange?.response?.headers?.set("Refresh-Token", refreshToken)
+            when (principal) {
+                is User -> {
+                    val roles = principal.authorities.map { it.authority }.toTypedArray()
+                    val accessToken = jwtService.accessToken(principal.username, roles)
+                    val refreshToken = jwtService.refreshToken(principal.username, roles)
+                    webFilterExchange?.exchange?.response?.headers?.set("Authorization", accessToken)
+                    webFilterExchange?.exchange?.response?.headers?.set("Refresh-Token", refreshToken)
+                }
             }
-        }
 
-        return@mono null
-    }
+            return@mono null
+        }
 }

@@ -16,8 +16,9 @@ import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 
 @Component
-class JwtConverter(private val jacksonDecoder: AbstractJackson2Decoder,
-                   private val validator: Validator
+class JwtConverter(
+    private val jacksonDecoder: AbstractJackson2Decoder,
+    private val validator: Validator
 ) : ServerAuthenticationConverter {
     override fun convert(exchange: ServerWebExchange?): Mono<Authentication> = mono {
         val signInRequest = getUsernameAndPassword(exchange!!) ?: throw badRequest()
