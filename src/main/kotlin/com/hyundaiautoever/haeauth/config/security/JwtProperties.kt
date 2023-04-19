@@ -1,4 +1,4 @@
-package com.hyundaiautoever.haeauth.config
+package com.hyundaiautoever.haeauth.config.security
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 
@@ -8,4 +8,6 @@ data class JwtProperties(
     val subject: String,
     val expiresTime: Long,
     val secret: String,
+    val refresh: String,
+    val refreshExpiresTime: Long,
 )

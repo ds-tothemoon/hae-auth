@@ -2,7 +2,6 @@ package com.hyundaiautoever.haeauth.presentation
 
 import com.hyundaiautoever.haeauth.application.AuthService
 import com.hyundaiautoever.haeauth.domain.dto.*
-import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -21,9 +20,10 @@ class AuthController(
     }
 
     @GetMapping("/me")
-    suspend fun get(
-        @AuthToken token: String
-    ): MeResponse {
-        return MeResponse(authService.getByToken(token))
+    suspend fun get(): MeResponse? {
+        authService.getCurrentUserInfo()?.let {
+            return MeResponse(it)
+        }
+        return null
     }
 }

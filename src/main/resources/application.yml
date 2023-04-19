@@ -11,5 +11,7 @@ jwt:
   issuer: jara
   subject: auth
   expires-time: 3600
-  secret: dummy
-
+  version: 1.0.0
+  secret: secret
+  refresh: refresh
+  refresh-expires-time: 36000

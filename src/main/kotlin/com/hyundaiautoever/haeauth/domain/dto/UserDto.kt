@@ -1,6 +1,6 @@
 package com.hyundaiautoever.haeauth.domain.dto
 
-import com.hyundaiautoever.haeauth.domain.entity.User
+import com.hyundaiautoever.haeauth.domain.entity.AppUser
 import java.time.LocalDateTime
 
 data class UserEditRequest(
@@ -18,7 +18,7 @@ data class MeResponse(
 
     companion object {
 
-        operator fun invoke(user: User) = with(user) {
+        operator fun invoke(user: AppUser) = with(user) {
             MeResponse(
                 id = id!!,
                 profileUrl = if (profileUrl.isNullOrEmpty()) null else "http://localhost:9090/images/$profileUrl",
